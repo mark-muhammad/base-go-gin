@@ -1,8 +1,8 @@
 package unit_test
 
 import (
-	"base-gin/domain"
-	"base-gin/domain/dto"
+	"base-gin/app/domain"
+	"base-gin/app/domain/dto"
 	"base-gin/util"
 	"testing"
 	"time"

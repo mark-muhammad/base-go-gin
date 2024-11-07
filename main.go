@@ -1,14 +1,15 @@
 package main
 
 import (
+	"base-gin/app/repository"
+	"base-gin/app/rest"
+	"base-gin/app/service"
 	"base-gin/config"
 	_ "base-gin/docs"
-	"base-gin/repository"
-	"base-gin/rest"
 	"base-gin/server"
-	"base-gin/service"
 	"base-gin/storage"
 
+	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
@@ -43,7 +44,9 @@ func main() {
 
 	// Swagger
 	if cfg.App.Mode == "debug" {
-		app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+		app.GET("/swagger/*any", gin.BasicAuth(gin.Accounts{
+			"foo": "bar",
+		}), ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
 	server.Serve(app)

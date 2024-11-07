@@ -1,10 +1,10 @@
 package rest
 
 import (
-	"base-gin/domain/dto"
+	"base-gin/app/domain/dto"
+	"base-gin/app/service"
 	"base-gin/exception"
 	"base-gin/server"
-	"base-gin/service"
 	"errors"
 	"net/http"
 	"strconv"
@@ -17,7 +17,7 @@ type PersonHandler struct {
 	service *service.PersonService
 }
 
-func NewPersonHandler(
+func newPersonHandler(
 	hr *server.Handler,
 	personService *service.PersonService,
 ) *PersonHandler {
@@ -40,7 +40,7 @@ func (h *PersonHandler) Route(app *gin.Engine) {
 //	@Param s query int false "Data offset"
 //	@Param l query int false "Data limit"
 //	@Success 200 {object} dto.SuccessResponse[[]dto.PersonDetailResp]
-//	@Failure 422 {object} dto.ErrorResponse
+//	@Failure 400 {object} dto.ErrorResponse
 //	@Failure 404 {object} dto.ErrorResponse
 //	@Failure 422 {object} dto.ErrorResponse
 //	@Failure 500 {object} dto.ErrorResponse

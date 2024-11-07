@@ -1,10 +1,10 @@
 package server
 
 import (
+	"base-gin/app/domain/dto"
+	"base-gin/app/repository"
 	"base-gin/config"
-	"base-gin/domain/dto"
 	"base-gin/exception"
-	"base-gin/repository"
 	"base-gin/util"
 	"bytes"
 	"errors"

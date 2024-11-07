@@ -1,7 +1,7 @@
 package integration_test
 
 import (
-	"base-gin/domain/dto"
+	"base-gin/app/domain/dto"
 	"base-gin/server"
 	"testing"
 

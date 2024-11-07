@@ -1,10 +1,10 @@
 package unit_test
 
 import (
+	"base-gin/app/domain"
+	"base-gin/app/domain/dao"
+	"base-gin/app/repository"
 	"base-gin/config"
-	"base-gin/domain"
-	"base-gin/domain/dao"
-	"base-gin/repository"
 	"base-gin/storage"
 	"base-gin/util"
 	"fmt"

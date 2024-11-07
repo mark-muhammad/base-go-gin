@@ -1,10 +1,10 @@
 package service
 
 import (
+	"base-gin/app/domain/dto"
+	"base-gin/app/repository"
 	"base-gin/config"
-	"base-gin/domain/dto"
 	"base-gin/exception"
-	"base-gin/repository"
 	"base-gin/util"
 )
 
@@ -13,7 +13,7 @@ type AccountService struct {
 	repo *repository.AccountRepository
 }
 
-func NewAccountService(
+func newAccountService(
 	cfg *config.Config,
 	accountRepo *repository.AccountRepository,
 ) *AccountService {

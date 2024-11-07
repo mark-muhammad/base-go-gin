@@ -1,10 +1,10 @@
 package rest
 
 import (
-	"base-gin/domain/dto"
+	"base-gin/app/domain/dto"
+	"base-gin/app/service"
 	"base-gin/exception"
 	"base-gin/server"
-	"base-gin/service"
 	"errors"
 	"net/http"
 
@@ -17,7 +17,7 @@ type AccountHandler struct {
 	personService *service.PersonService
 }
 
-func NewAccountHandler(
+func newAccountHandler(
 	hr *server.Handler,
 	accountService *service.AccountService,
 	personService *service.PersonService,

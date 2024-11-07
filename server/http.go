@@ -1,8 +1,8 @@
 package server
 
 import (
+	"base-gin/app/repository"
 	"base-gin/config"
-	"base-gin/repository"
 	"context"
 	"errors"
 	"net/http"

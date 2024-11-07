@@ -1,16 +1,16 @@
 package service
 
 import (
-	"base-gin/domain/dto"
+	"base-gin/app/domain/dto"
+	"base-gin/app/repository"
 	"base-gin/exception"
-	"base-gin/repository"
 )
 
 type PersonService struct {
 	repo *repository.PersonRepository
 }
 
-func NewPersonService(personRepo *repository.PersonRepository) *PersonService {
+func newPersonService(personRepo *repository.PersonRepository) *PersonService {
 	return &PersonService{repo: personRepo}
 }
 

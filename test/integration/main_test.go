@@ -1,13 +1,13 @@
 package integration_test
 
 import (
+	"base-gin/app/domain"
+	"base-gin/app/domain/dao"
+	"base-gin/app/repository"
+	"base-gin/app/rest"
+	"base-gin/app/service"
 	"base-gin/config"
-	"base-gin/domain"
-	"base-gin/domain/dao"
-	"base-gin/repository"
-	"base-gin/rest"
 	"base-gin/server"
-	"base-gin/service"
 	"base-gin/storage"
 	"base-gin/util"
 	"bytes"
@@ -37,9 +37,8 @@ var (
 	dummyAdmin  *dao.Person
 	dummyMember *dao.Person
 
-	accountRepo   *repository.AccountRepository
-	personRepo    *repository.PersonRepository
-	publisherRepo *repository.PublisherRepository
+	accountRepo *repository.AccountRepository
+	personRepo  *repository.PersonRepository
 )
 
 func TestMain(m *testing.M) {
@@ -65,7 +64,6 @@ func setup() {
 	repository.SetupRepositories()
 	accountRepo = repository.GetAccountRepo()
 	personRepo = repository.GetPersonRepo()
-	publisherRepo = repository.GetPublisherRepo()
 
 	a := createDummyAccount()
 	dummyAdmin = createDummyProfile(a)
@@ -82,7 +80,6 @@ func teardownDB() {
 	_ = db.Migrator().DropTable(
 		&dao.Account{},
 		&dao.Person{},
-		&dao.Publisher{},
 	)
 }
 
@@ -90,7 +87,6 @@ func setupDB() {
 	_ = db.AutoMigrate(
 		&dao.Account{},
 		&dao.Person{},
-		&dao.Publisher{},
 	)
 }
 

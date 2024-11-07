@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"base-gin/domain/dao"
+	"base-gin/app/domain/dao"
 	"base-gin/exception"
 	"base-gin/storage"
 	"errors"
@@ -13,7 +13,7 @@ type AccountRepository struct {
 	db *gorm.DB
 }
 
-func NewAccountRepository(db *gorm.DB) *AccountRepository {
+func newAccountRepository(db *gorm.DB) *AccountRepository {
 	return &AccountRepository{db: db}
 }
 

@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"base-gin/domain"
-	"base-gin/domain/dao"
+	"base-gin/app/domain"
+	"base-gin/app/domain/dao"
 	"time"
 )
 

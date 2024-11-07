@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"base-gin/domain"
+	"base-gin/app/domain"
 	"time"
 
 	"gorm.io/gorm"

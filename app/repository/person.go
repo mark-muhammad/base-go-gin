@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"base-gin/domain/dao"
-	"base-gin/domain/dto"
+	"base-gin/app/domain/dao"
+	"base-gin/app/domain/dto"
 	"base-gin/exception"
 	"base-gin/storage"
 	"errors"
@@ -15,7 +15,7 @@ type PersonRepository struct {
 	db *gorm.DB
 }
 
-func NewPersonRepository(db *gorm.DB) *PersonRepository {
+func newPersonRepository(db *gorm.DB) *PersonRepository {
 	return &PersonRepository{db: db}
 }
 
