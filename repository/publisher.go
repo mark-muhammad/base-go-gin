@@ -74,6 +74,21 @@ func (r *PublisherRepository) GetList(params *dto.Filter) ([]dao.Publisher, erro
 	return items, nil
 }
 
+func (r *PublisherRepository) GetBooks(id uint) ([]dao.Book, error) {
+	ctx, cancelFunc := storage.NewDBContext()
+	defer cancelFunc()
+
+	var books []dao.Book
+	tx := r.db.WithContext(ctx).Where("publisher_id = ?", id).
+		Order("title").
+		Find(&books)
+	if tx.Error != nil && !errors.Is(tx.Error, gorm.ErrRecordNotFound) {
+		return nil, tx.Error
+	}
+
+	return books, nil
+}
+
 func (r *PublisherRepository) Update(params *dto.PublisherUpdateReq) error {
 	ctx, cancelFunc := storage.NewDBContext()
 	defer cancelFunc()

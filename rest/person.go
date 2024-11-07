@@ -40,7 +40,7 @@ func (h *PersonHandler) Route(app *gin.Engine) {
 //	@Param s query int false "Data offset"
 //	@Param l query int false "Data limit"
 //	@Success 200 {object} dto.SuccessResponse[[]dto.PersonDetailResp]
-//	@Failure 422 {object} dto.ErrorResponse
+//	@Failure 400 {object} dto.ErrorResponse
 //	@Failure 404 {object} dto.ErrorResponse
 //	@Failure 422 {object} dto.ErrorResponse
 //	@Failure 500 {object} dto.ErrorResponse

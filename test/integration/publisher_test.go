@@ -11,6 +11,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func createPublisher() dao.Publisher {
+	o := dao.Publisher{
+		Name: util.RandomStringAlpha(6),
+		City: util.RandomStringAlpha(8),
+	}
+	_ = publisherRepo.Create(&o)
+
+	return o
+}
+
 func TestPublisher_Create_Success(t *testing.T) {
 	params := dto.PublisherCreateReq{
 		Name: util.RandomStringAlpha(6),
@@ -27,12 +37,10 @@ func TestPublisher_Create_Success(t *testing.T) {
 }
 
 func TestPublisher_Update_Success(t *testing.T) {
-	o := dao.Publisher{
-		Name: util.RandomStringAlpha(6),
-		City: util.RandomStringAlpha(8),
-	}
-	_ = publisherRepo.Create(&o)
+	// requirement
+	o := createPublisher()
 
+	// action
 	params := dto.PublisherUpdateReq{
 		Name: util.RandomStringAlpha(7),
 		City: util.RandomStringAlpha(10),
@@ -44,6 +52,8 @@ func TestPublisher_Update_Success(t *testing.T) {
 		params,
 		createAuthAccessToken(dummyAdmin.Account.Username),
 	)
+
+	// output
 	assert.Equal(t, 200, w.Code)
 
 	item, _ := publisherRepo.GetByID(o.ID)
@@ -53,10 +63,7 @@ func TestPublisher_Update_Success(t *testing.T) {
 }
 
 func TestPublisher_Delete_Success(t *testing.T) {
-	o := dao.Publisher{
-		Name: util.RandomStringAlpha(6),
-		City: util.RandomStringAlpha(8),
-	}
+	o := createPublisher()
 	_ = publisherRepo.Create(&o)
 
 	w := doTest(
@@ -72,16 +79,10 @@ func TestPublisher_Delete_Success(t *testing.T) {
 }
 
 func TestPublisher_GetList_Success(t *testing.T) {
-	o1 := dao.Publisher{
-		Name: util.RandomStringAlpha(6),
-		City: util.RandomStringAlpha(8),
-	}
+	o1 := createPublisher()
 	_ = publisherRepo.Create(&o1)
 
-	o2 := dao.Publisher{
-		Name: util.RandomStringAlpha(6),
-		City: util.RandomStringAlpha(8),
-	}
+	o2 := createPublisher()
 	_ = publisherRepo.Create(&o2)
 
 	w := doTest(
@@ -110,10 +111,7 @@ func TestPublisher_GetList_Success(t *testing.T) {
 }
 
 func TestPublisher_GetDetail_Success(t *testing.T) {
-	o := dao.Publisher{
-		Name: util.RandomStringAlpha(6),
-		City: util.RandomStringAlpha(8),
-	}
+	o := createPublisher()
 	_ = publisherRepo.Create(&o)
 
 	w := doTest(
