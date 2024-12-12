@@ -8,11 +8,6 @@ type Service interface {
 	init(*config.Config)
 }
 
-var services []Service = []Service{
-	&AccountService{},
-	&PersonService{},
-}
-
 func SetupServices(cfg *config.Config) {
 	for _, v := range services {
 		v.init(cfg)

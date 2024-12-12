@@ -10,11 +10,6 @@ type Repository interface {
 	init(db *gorm.DB)
 }
 
-var repos []Repository = []Repository{
-	&AccountRepository{},
-	&PersonRepository{},
-}
-
 func SetupRepositories() {
 	db := storage.GetDB()
 

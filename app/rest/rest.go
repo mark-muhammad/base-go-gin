@@ -11,11 +11,6 @@ type RestHandler interface {
 	Route(*gin.Engine)
 }
 
-var handlers []RestHandler = []RestHandler{
-	&AccountHandler{},
-	&PersonHandler{},
-}
-
 func SetupRestHandlers(app *gin.Engine) {
 	handler := server.GetHandler()
 
