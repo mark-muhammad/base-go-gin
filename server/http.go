@@ -30,9 +30,9 @@ var (
 )
 
 func Init(
-	cfg *config.Config,
 	accountRepo **repository.AccountRepository,
 ) *gin.Engine {
+	cfg := config.GetConfig()
 	app := gin.New()
 	app.Use(gin.Recovery())       // panic handling
 	registerCustomValidationTag() // returns json field name on errors

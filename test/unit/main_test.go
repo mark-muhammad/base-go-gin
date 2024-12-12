@@ -46,9 +46,10 @@ func setup() {
 		log.Fatal(fmt.Errorf("Test.Integration: Can not find .env.test on root dir"))
 	}
 
-	cfg = config.NewConfig()
+	config.InitConfig()
+	cfg = *config.GetConfig()
 
-	storage.InitDB(cfg)
+	storage.InitDB()
 	db = storage.GetDB()
 	teardownDB()
 	setupDB()

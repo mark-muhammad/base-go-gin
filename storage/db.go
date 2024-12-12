@@ -16,7 +16,8 @@ import (
 
 var db *gorm.DB
 
-func InitDB(config config.Config) {
+func InitDB() {
+	config := config.GetConfig()
 	logLevel := logger.Silent
 	if config.App.Mode == "debug" {
 		logLevel = logger.Error

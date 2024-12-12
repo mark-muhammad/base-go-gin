@@ -39,7 +39,9 @@ type Config struct {
 	AuthN AuthNConfig
 }
 
-func NewConfig() Config {
+var config *Config
+
+func InitConfig() {
 	zerolog.TimestampFieldName = "time"
 	zerolog.LevelFieldName = "level"
 	zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
@@ -63,5 +65,13 @@ func NewConfig() Config {
 		log.Fatal().Err(fmt.Errorf("PWD_SECRET_32CHAR must be %d characters", 32)).Msg("config error")
 	}
 
-	return cfg
+	config = &cfg
+}
+
+func GetConfig() *Config {
+	if config == nil {
+		panic("app configuration is not initialised")
+	}
+
+	return config
 }

@@ -8,7 +8,9 @@ type Service interface {
 	init(*config.Config)
 }
 
-func SetupServices(cfg *config.Config) {
+func SetupServices() {
+	cfg := config.GetConfig()
+
 	for _, v := range services {
 		v.init(cfg)
 	}

@@ -3,6 +3,7 @@ package integration_test
 import (
 	"base-gin/app/domain/dto"
 	"base-gin/server"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -20,7 +21,7 @@ func TestAccount_Login_Success(t *testing.T) {
 
 func TestAccount_GetProfile_Success(t *testing.T) {
 	accessToken := createAuthAccessToken(dummyAdmin.Account.Username)
-
+	fmt.Println(accessToken)
 	w := doTest("GET", server.RootAccount, nil, accessToken)
 	assert.Equal(t, 200, w.Code)
 

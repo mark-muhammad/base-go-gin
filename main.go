@@ -34,16 +34,16 @@ import (
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 func main() {
-	cfg := config.NewConfig()
-	storage.InitDB(cfg)
+	config.InitConfig()
+	storage.InitDB()
 	repository.SetupRepositories()
-	service.SetupServices(&cfg)
+	service.SetupServices()
 
-	app := server.Init(&cfg, repository.GetRepository[*repository.AccountRepository]())
+	app := server.Init(repository.GetRepository[*repository.AccountRepository]())
 	rest.SetupRestHandlers(app)
 
 	// Swagger
-	if cfg.App.Mode == "debug" {
+	if config.GetConfig().App.Mode == "debug" {
 		app.GET("/swagger/*any", gin.BasicAuth(gin.Accounts{
 			"foo": "bar",
 		}), ginSwagger.WrapHandler(swaggerFiles.Handler))
