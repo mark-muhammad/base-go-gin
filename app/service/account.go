@@ -13,11 +13,14 @@ type AccountService struct {
 	repo *repository.AccountRepository
 }
 
-func newAccountService(
-	cfg *config.Config,
-	accountRepo *repository.AccountRepository,
-) *AccountService {
-	return &AccountService{cfg: cfg, repo: accountRepo}
+func (s *AccountService) init(cfg *config.Config) {
+	r := repository.GetRepository[*repository.AccountRepository]()
+	if r == nil {
+		panic("account repository is not initialised")
+	}
+
+	s.cfg = cfg
+	s.repo = *r
 }
 
 func (s *AccountService) Login(p dto.AccountLoginReq) (dto.AccountLoginResp, error) {

@@ -39,7 +39,7 @@ func main() {
 	repository.SetupRepositories()
 	service.SetupServices(&cfg)
 
-	app := server.Init(&cfg, repository.GetAccountRepo())
+	app := server.Init(&cfg, repository.GetRepository[*repository.AccountRepository]())
 	rest.SetupRestHandlers(app)
 
 	// Swagger

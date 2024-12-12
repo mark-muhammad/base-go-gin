@@ -15,8 +15,8 @@ type PersonRepository struct {
 	db *gorm.DB
 }
 
-func newPersonRepository(db *gorm.DB) *PersonRepository {
-	return &PersonRepository{db: db}
+func (r *PersonRepository) init(db *gorm.DB) {
+	r.db = db
 }
 
 func (r *PersonRepository) Create(newItem *dao.Person) error {

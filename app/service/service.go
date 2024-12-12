@@ -1,28 +1,30 @@
 package service
 
 import (
-	"base-gin/app/repository"
 	"base-gin/config"
 )
 
-var (
-	accountService *AccountService
-	personService  *PersonService
-)
+type Service interface {
+	init(*config.Config)
+}
+
+var services []Service = []Service{
+	&AccountService{},
+	&PersonService{},
+}
 
 func SetupServices(cfg *config.Config) {
-	accountService = newAccountService(cfg, repository.GetAccountRepo())
-	personService = newPersonService(repository.GetPersonRepo())
+	for _, v := range services {
+		v.init(cfg)
+	}
 }
 
-func GetAccountService() *AccountService {
-	if accountService == nil {
-		panic("account service is not initialised")
+func GetService[T Service]() *T {
+	for _, v := range services {
+		if r, ok := v.(T); ok {
+			return &r
+		}
 	}
 
-	return accountService
-}
-
-func GetPersonService() *PersonService {
-	return personService
+	return nil
 }

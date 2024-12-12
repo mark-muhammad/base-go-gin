@@ -54,8 +54,8 @@ func setup() {
 	setupDB()
 
 	repository.SetupRepositories()
-	accountRepo = repository.GetAccountRepo()
-	personRepo = repository.GetPersonRepo()
+	accountRepo = *repository.GetRepository[*repository.AccountRepository]()
+	personRepo = *repository.GetRepository[*repository.PersonRepository]()
 
 	a := createDummyAccount()
 	dummyAdmin = createDummyProfile(a)

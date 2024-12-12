@@ -1,22 +1,34 @@
 package repository
 
-import "base-gin/storage"
+import (
+	"base-gin/storage"
 
-var (
-	accountRepo *AccountRepository
-	personRepo  *PersonRepository
+	"gorm.io/gorm"
 )
+
+type Repository interface {
+	init(db *gorm.DB)
+}
+
+var repos []Repository = []Repository{
+	&AccountRepository{},
+	&PersonRepository{},
+}
 
 func SetupRepositories() {
 	db := storage.GetDB()
-	accountRepo = newAccountRepository(db)
-	personRepo = newPersonRepository(db)
+
+	for i := 0; i < len(repos); i++ {
+		repos[i].init(db)
+	}
 }
 
-func GetAccountRepo() *AccountRepository {
-	return accountRepo
-}
+func GetRepository[T Repository]() *T {
+	for _, v := range repos {
+		if r, ok := v.(T); ok {
+			return &r
+		}
+	}
 
-func GetPersonRepo() *PersonRepository {
-	return personRepo
+	return nil
 }

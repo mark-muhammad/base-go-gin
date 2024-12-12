@@ -31,13 +31,13 @@ var (
 
 func Init(
 	cfg *config.Config,
-	accountRepo *repository.AccountRepository,
+	accountRepo **repository.AccountRepository,
 ) *gin.Engine {
 	app := gin.New()
 	app.Use(gin.Recovery())       // panic handling
 	registerCustomValidationTag() // returns json field name on errors
 
-	handler = NewHandler(cfg, accountRepo)
+	handler = NewHandler(cfg, *accountRepo)
 
 	return app
 }

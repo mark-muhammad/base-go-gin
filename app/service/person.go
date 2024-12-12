@@ -3,6 +3,7 @@ package service
 import (
 	"base-gin/app/domain/dto"
 	"base-gin/app/repository"
+	"base-gin/config"
 	"base-gin/exception"
 )
 
@@ -10,8 +11,13 @@ type PersonService struct {
 	repo *repository.PersonRepository
 }
 
-func newPersonService(personRepo *repository.PersonRepository) *PersonService {
-	return &PersonService{repo: personRepo}
+func (s *PersonService) init(_ *config.Config) {
+	r := repository.GetRepository[*repository.PersonRepository]()
+	if r == nil {
+		panic("person repository is not initialised")
+	}
+
+	s.repo = *r
 }
 
 func (s *PersonService) GetAccountProfile(accountID uint) (dto.AccountProfileResp, error) {

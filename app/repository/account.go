@@ -13,8 +13,8 @@ type AccountRepository struct {
 	db *gorm.DB
 }
 
-func newAccountRepository(db *gorm.DB) *AccountRepository {
-	return &AccountRepository{db: db}
+func (r *AccountRepository) init(db *gorm.DB) {
+	r.db = db
 }
 
 func (r *AccountRepository) Create(newItem *dao.Account) error {

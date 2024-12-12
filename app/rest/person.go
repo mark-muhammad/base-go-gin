@@ -17,11 +17,14 @@ type PersonHandler struct {
 	service *service.PersonService
 }
 
-func newPersonHandler(
-	hr *server.Handler,
-	personService *service.PersonService,
-) *PersonHandler {
-	return &PersonHandler{hr: hr, service: personService}
+func (h *PersonHandler) init(hr *server.Handler) {
+	personService := service.GetService[*service.PersonService]()
+	if personService == nil {
+		panic("person service is not initialised")
+	}
+
+	h.hr = hr
+	h.service = *personService
 }
 
 func (h *PersonHandler) Route(app *gin.Engine) {

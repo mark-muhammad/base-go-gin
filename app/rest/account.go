@@ -17,13 +17,20 @@ type AccountHandler struct {
 	personService *service.PersonService
 }
 
-func newAccountHandler(
-	hr *server.Handler,
-	accountService *service.AccountService,
-	personService *service.PersonService,
-) *AccountHandler {
-	return &AccountHandler{
-		hr: hr, service: accountService, personService: personService}
+func (h *AccountHandler) init(hr *server.Handler) {
+	accountService := service.GetService[*service.AccountService]()
+	if accountService == nil {
+		panic("account service is not initialised")
+	}
+
+	personService := service.GetService[*service.PersonService]()
+	if personService == nil {
+		panic("person service is not initialised")
+	}
+
+	h.hr = hr
+	h.service = *accountService
+	h.personService = *personService
 }
 
 func (h *AccountHandler) Route(app *gin.Engine) {
