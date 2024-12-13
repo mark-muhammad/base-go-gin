@@ -18,13 +18,8 @@ type PersonHandler struct {
 }
 
 func (h *PersonHandler) init(hr *server.Handler) {
-	personService := service.GetService[*service.PersonService]()
-	if personService == nil {
-		panic("person service is not initialised")
-	}
-
 	h.hr = hr
-	h.service = *personService
+	h.service = *service.GetService[*service.PersonService]()
 }
 
 func (h *PersonHandler) Route(app *gin.Engine) {

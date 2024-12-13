@@ -18,19 +18,9 @@ type AccountHandler struct {
 }
 
 func (h *AccountHandler) init(hr *server.Handler) {
-	accountService := service.GetService[*service.AccountService]()
-	if accountService == nil {
-		panic("account service is not initialised")
-	}
-
-	personService := service.GetService[*service.PersonService]()
-	if personService == nil {
-		panic("person service is not initialised")
-	}
-
 	h.hr = hr
-	h.service = *accountService
-	h.personService = *personService
+	h.service = *service.GetService[*service.AccountService]()
+	h.personService = *service.GetService[*service.PersonService]()
 }
 
 func (h *AccountHandler) Route(app *gin.Engine) {

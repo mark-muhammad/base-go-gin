@@ -2,6 +2,8 @@ package service
 
 import (
 	"base-gin/config"
+	"fmt"
+	"reflect"
 )
 
 type Service interface {
@@ -23,5 +25,7 @@ func GetService[T Service]() *T {
 		}
 	}
 
-	return nil
+	var t T
+	errMsg := fmt.Sprintf("%s is not initialised", reflect.TypeOf(t).String())
+	panic(errMsg)
 }

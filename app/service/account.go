@@ -14,13 +14,8 @@ type AccountService struct {
 }
 
 func (s *AccountService) init(cfg *config.Config) {
-	r := repository.GetRepository[*repository.AccountRepository]()
-	if r == nil {
-		panic("account repository is not initialised")
-	}
-
 	s.cfg = cfg
-	s.repo = *r
+	s.repo = *repository.GetRepository[*repository.AccountRepository]()
 }
 
 func (s *AccountService) Login(p dto.AccountLoginReq) (dto.AccountLoginResp, error) {

@@ -2,6 +2,8 @@ package repository
 
 import (
 	"base-gin/storage"
+	"fmt"
+	"reflect"
 
 	"gorm.io/gorm"
 )
@@ -25,5 +27,7 @@ func GetRepository[T Repository]() *T {
 		}
 	}
 
-	return nil
+	var t T
+	errMsg := fmt.Sprintf("%s is not initialised", reflect.TypeOf(t).String())
+	panic(errMsg)
 }

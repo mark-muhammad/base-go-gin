@@ -12,12 +12,7 @@ type PersonService struct {
 }
 
 func (s *PersonService) init(_ *config.Config) {
-	r := repository.GetRepository[*repository.PersonRepository]()
-	if r == nil {
-		panic("person repository is not initialised")
-	}
-
-	s.repo = *r
+	s.repo = *repository.GetRepository[*repository.PersonRepository]()
 }
 
 func (s *PersonService) GetAccountProfile(accountID uint) (dto.AccountProfileResp, error) {
